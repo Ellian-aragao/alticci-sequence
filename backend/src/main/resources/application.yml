@@ -1,0 +1,9 @@
+quarkus:
+  smallrye-openapi:
+    path: '/swagger-ui'
+
+"%prod":
+  quarkus:
+    redis:
+      hosts: ${REDIS_HOST:localhost:6379}
+      key: ${REDIS_KEY:alticci::sequence}
