@@ -1,10 +1,32 @@
-<section>
-  <h1>{{title}}</h1>
-  <div>
-    <label>Enter a positive number: </label>
-    <input type="number" [(ngModel)]="inputNumber" (input)="onChangeInputNumber($event)" placeholder="2">
-  </div>
-  <article>
-
-  </article>
-</section>
+<main>
+  <section>
+    <h1>Alticci Sequence</h1>
+    <article>
+      <label>Enter a positive number:</label>
+      <input
+        type="number"
+        [(ngModel)]="inputNumber"
+        (input)="onChangeInputNumber($event)"
+        placeholder="0"
+        [min]="bounds.minValue"
+        [max]="bounds.maxValue"
+      />
+      <input
+        type="range"
+        [min]="bounds.minValue"
+        [max]="bounds.maxValue"
+        [(ngModel)]="inputNumber"
+        (input)="onChangeInputNumber($event)"
+      />
+      <ng-container
+        *ngIf="!showErrorDisplay; then thenTemplate; else elseTemplate"
+      ></ng-container>
+      <ng-template #thenTemplate>
+        <span class="data-value">result: {{ presentationAlticciValue }}</span>
+      </ng-template>
+      <ng-template #elseTemplate>
+        <span class="error">{{ errorDisplay }}</span>
+      </ng-template>
+    </article>
+  </section>
+</main>

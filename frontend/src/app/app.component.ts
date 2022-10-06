@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, Observable, of, Subscription } from 'rxjs';
 import { AlticciSequenceService } from './alticci-sequence.service';
 
 @Component({
@@ -8,10 +8,16 @@ import { AlticciSequenceService } from './alticci-sequence.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
-  title = 'alticci-sequence';
+  readonly bounds = {
+    minValue: 0,
+    maxValue: 157,
+  };
+
   inputNumber = 0;
   presentationAlticciValue = 0;
   $obs: Subscription[] = [];
+  showErrorDisplay = false;
+  errorDisplay = '';
 
   constructor(private service: AlticciSequenceService) {}
 
@@ -19,10 +25,19 @@ export class AppComponent implements OnDestroy {
     const indexAlticciSequence = inputHtml.target.value;
     const $obs = this.service
       .getSequenceFromIndex(indexAlticciSequence)
+      .pipe(catchError((error) => this.errorHandler(error)))
       .subscribe((response) => {
+        this.showErrorDisplay = false;
         this.presentationAlticciValue = response.value;
       });
     this.$obs.push($obs);
+  }
+
+  errorHandler(erro: any): Observable<never> {
+    console.error('Erro: ', erro);
+    this.showErrorDisplay = true;
+    this.errorDisplay = erro.error;
+    return of();
   }
 
   ngOnDestroy() {
