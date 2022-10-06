@@ -1,0 +1,42 @@
+---
+openapi: 3.0.3
+info:
+  title: alticci-sequence API
+  version: 0.0.1
+paths:
+  /alticci/{size}:
+    get:
+      tags:
+      - Alticci Sequence Resource
+      parameters:
+      - name: size
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlticciTerm'
+        "400":
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Size must be greater than 0
+components:
+  schemas:
+    AlticciTerm:
+      type: object
+      properties:
+        term:
+          format: int64
+          type: integer
+        value:
+          format: int64
+          type: integer
