@@ -30,7 +30,8 @@ Sistema para interpretação de strings para geração de relatório.
 
 - [Git](https://git-scm.com/downloads)
 - [Maven](https://maven.apache.org/)
-- [JDK 17](https://adoptium.net/)
+- [JDK 17.0.4.1 LTS](https://adoptium.net/)
+- [NodeJs 16.17.1 LTS](https://nodejs.org/)
 
 #### 🎲 Rodando o projeto backend
 
