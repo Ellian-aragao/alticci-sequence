@@ -15,6 +15,14 @@ services:
     restart: always
     ports:
       - '6379:6379'
+  frontend-alticci-sequence:
+    image: ellian/alticci-sequence-frontend:latest
+    container_name: alticci-sequence-frontend
+    restart: always
+    environment:
+      API_URL: alticci-sequence-service:8080
+    ports:
+      - '80:80'
 
 networks:
   alticci-sequence:
